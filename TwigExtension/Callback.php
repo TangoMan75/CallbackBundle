@@ -2,15 +2,30 @@
 
 namespace TangoMan\CallbackBundle\TwigExtension;
 
+use Symfony\Component\HttpFoundation\RequestStack;
+
 /**
  * Class Callback
  * Avoids multiple callbacks appending indefinitely.
  *
- * @author  Matthias Morin <tangoman@free.fr>
+ * @author  Matthias Morin <matthias.morin@gmail.com>
  * @package AppBundle\TwigExtension
  */
 class Callback extends \Twig_Extension
 {
+    /**
+     * @var RequestStack
+     */
+    protected $request;
+
+    /**
+     * Callback constructor.
+     */
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->request = $requestStack->getCurrentRequest();
+    }
+
     /**
      * @return string
      */
@@ -22,21 +37,25 @@ class Callback extends \Twig_Extension
     /**
      * @return array
      */
-    public function getFilters()
+    public function getFunctions()
     {
         return [
-            new \Twig_SimpleFilter('callback', [$this, 'callback']),
+            new \Twig_SimpleFunction('callback', [$this, 'callbackFunction']),
         ];
     }
 
     /**
-     * @param $url
+     * @param string $uri
      *
      * @return string
      */
-    public function callback($url)
+    public function callbackFunction($uri = null)
     {
-        $result = parse_url($url);
+        if ($uri === null) {
+            $uri = $this->request->getUri();
+        }
+
+        $result = parse_url($uri);
 
         // When url contains query string
         if (isset($result['query'])) {
@@ -45,10 +64,9 @@ class Callback extends \Twig_Extension
 
             // Remove callback from query
             $query = array_diff_key($query, ['callback' => null]);
-
         } else {
             // Return unchanged url
-            return $url;
+            return $uri;
         }
 
         return $result['scheme'].'://'.

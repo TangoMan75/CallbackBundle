@@ -1,5 +1,7 @@
 services:
     twig.extension.callback:
         class: TangoMan\CallbackBundle\TwigExtension\Callback
+        arguments:
+            - "@request_stack"
         tags:
             - { name: twig.extension }

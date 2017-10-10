@@ -1,15 +1,15 @@
 {
     "name": "tangoman/callback-bundle",
     "description": "Callback Symfony Twig Extension Bundle",
-    "version": "1.0.0",
-    "license": "GPL-3.0",
+    "version": "2.0.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "Matthias Morin",
-            "email": "tangoman@free.fr"
+            "email": "matthias.morin@gmail.com"
         }
     ],
-    "type": "symfony-bundle",
+    "type": "library",
     "keywords": [
         "Callback",
         "Twig",
