@@ -1,7 +1,7 @@
 TangoMan Callback Twig Extension Bundle
 =======================================
 
-**TangoMan Callback Twig Extension Bundle** provides simple callbacks manager for twig, avoids unnecessary callbacks to ad up indefinitely.
+**TangoMan Callback Twig Extension Bundle** provides simple callbacks manager for twig, avoids unnecessary callbacks to stack up indefinitely.
 
 Installation
 ============
