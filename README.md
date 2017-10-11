@@ -53,6 +53,18 @@ You don't have to add **TangoMan CallbackBundle** to the `service.yml` of your p
 Usage
 =====
 
+```
+callback(route   = null, parameters = [])
+```
+Returns current URI removing `callback` from query string.
+Optionally, returns the absolute URL (with scheme and host) for the given route with given parameters, `callback` will be ignored as well.
+
+|           | route  (optional) | parameters (optional)   |
+| :-------- | :------------     | :---------------------- |
+| type      | string            | array                   |
+| default   | current uri       | []                      |
+
+
 Inside your views:
 
 By default callback will be defined on user's current page. 
@@ -62,12 +74,13 @@ By default callback will be defined on user's current page.
     </a>
 ```
 
-But you can optionally redirect user to any page.
+But you can optionally redirect user to any route.
 ```twig
-    <a href="{{ path('app_delete_foo', { 'callback': callback( path('app_trash_bin') ) }) }}">
+    <a href="{{ path('app_delete_foo', { 'callback': callback('app_trash_bin', { 'slug': 'foo' } ) }) }}">
         Your Foo Bar link here
     </a>
 ```
+Callback function accepts route name and parameters for desired route.
 
 Inside your action method:
 ```php

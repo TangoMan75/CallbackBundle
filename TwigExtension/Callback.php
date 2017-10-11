@@ -3,6 +3,7 @@
 namespace TangoMan\CallbackBundle\TwigExtension;
 
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\Router;
 
 /**
  * Class Callback
@@ -19,11 +20,17 @@ class Callback extends \Twig_Extension
     protected $request;
 
     /**
+     * @var Router
+     */
+    protected $router;
+
+    /**
      * Callback constructor.
      */
-    public function __construct(RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack, Router $router)
     {
         $this->request = $requestStack->getCurrentRequest();
+        $this->router = $router;
     }
 
     /**
@@ -45,19 +52,26 @@ class Callback extends \Twig_Extension
     }
 
     /**
-     * @param string $uri
+     * Removes callbacks from query
+     *
+     * @param string $route
+     * @param array  $parameters
      *
      * @return string
      */
-    public function callbackFunction($uri = null)
+    public function callbackFunction($route = null, $parameters = [])
     {
-        if ($uri === null) {
+        if ($route === null || !is_string($route)) {
+            // Gets URI from current request
             $uri = $this->request->getUri();
+        } else {
+            // Generates URI from '_route'
+            $uri = $this->router->generate($route, $parameters, Router::ABSOLUTE_URL);
         }
 
         $result = parse_url($uri);
 
-        // When url contains query string
+        // When uri contains query string
         if (isset($result['query'])) {
 
             parse_str($result['query'], $query);
@@ -65,7 +79,7 @@ class Callback extends \Twig_Extension
             // Remove callback from query
             $query = array_diff_key($query, ['callback' => null]);
         } else {
-            // Return unchanged url
+            // Return unchanged uri
             return $uri;
         }
 

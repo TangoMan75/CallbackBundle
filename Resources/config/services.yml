@@ -3,5 +3,6 @@ services:
         class: TangoMan\CallbackBundle\TwigExtension\Callback
         arguments:
             - "@request_stack"
+            - "@router"
         tags:
             - { name: twig.extension }
