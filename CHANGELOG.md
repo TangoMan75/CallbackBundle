@@ -1,8 +1,7 @@
 CHANGELOG
 =========
 
-
-### 2017-10-10
+### 2017-10-11
  - MIT Licence
  - Callback is no longer a filter
  - Updated README

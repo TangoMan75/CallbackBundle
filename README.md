@@ -54,7 +54,7 @@ Usage
 =====
 
 ```
-callback(route   = null, parameters = [])
+callback(route = null, parameters = [])
 ```
 Returns current URI removing `callback` from query string.
 Optionally, returns the absolute URL (with scheme and host) for the given route with given parameters, `callback` will be ignored as well.
