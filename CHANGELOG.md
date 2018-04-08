@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+### 2018-04-08
+ - Copyright notice
+
 ### 2017-10-11
  - MIT Licence
  - Callback is no longer a filter
