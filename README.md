@@ -64,7 +64,6 @@ Optionally, returns the absolute URL (with scheme and host) for the given route 
 | type      | string            | array                   |
 | default   | current uri       | []                      |
 
-
 Inside your views:
 
 By default callback will be defined on user's current page. 
@@ -112,6 +111,5 @@ And follow me on GitHub: [TangoMan75](https://github.com/TangoMan75)
 
 [Matthias Morin | LinkedIn](https://www.linkedin.com/in/morinmatthias)
 
-[license-GPL]: https://img.shields.io/badge/Licence-GPLv3.0-green.svg
 [license-MIT]: https://img.shields.io/badge/Licence-MIT-green.svg
 [license-url]: LICENSE
