@@ -1,4 +1,10 @@
 <?php
+/**
+ * Copyright (c) 2018 Matthias Morin <matthias.morin@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 namespace TangoMan\CallbackBundle\TwigExtension;
 
@@ -10,10 +16,11 @@ use Symfony\Component\Routing\Router;
  * Avoids multiple callbacks appending indefinitely.
  *
  * @author  Matthias Morin <matthias.morin@gmail.com>
- * @package AppBundle\TwigExtension
+ * @package TangoMan\CallbackBundle\TwigExtension
  */
 class Callback extends \Twig_Extension
 {
+
     /**
      * @var RequestStack
      */
@@ -30,7 +37,7 @@ class Callback extends \Twig_Extension
     public function __construct(RequestStack $requestStack, Router $router)
     {
         $this->request = $requestStack->getCurrentRequest();
-        $this->router = $router;
+        $this->router  = $router;
     }
 
     /**
@@ -61,12 +68,16 @@ class Callback extends \Twig_Extension
      */
     public function callbackFunction($route = null, $parameters = [])
     {
-        if ($route === null || !is_string($route)) {
+        if ($route === null || ! is_string($route)) {
             // Gets URI from current request
             $uri = $this->request->getUri();
         } else {
             // Generates URI from '_route'
-            $uri = $this->router->generate($route, $parameters, Router::ABSOLUTE_URL);
+            $uri = $this->router->generate(
+                $route,
+                $parameters,
+                Router::ABSOLUTE_URL
+            );
         }
 
         $result = parse_url($uri);
@@ -84,12 +95,12 @@ class Callback extends \Twig_Extension
         }
 
         return $result['scheme'].'://'.
-            (isset($result['user']) ? $result['user'] : '').
-            (isset($result['pass']) ? ':'.$result['pass'].'@' : '').
-            $result['host'].
-            (isset($result['port']) ? ':'.$result['port'] : '').
-            (isset($result['path']) ? $result['path'] : '').
-            ($query != [] ? '?'.http_build_query($query) : '').
-            (isset($result['fragment']) ? '#'.$result['fragment'] : '');
+               (isset($result['user']) ? $result['user'] : '').
+               (isset($result['pass']) ? ':'.$result['pass'].'@' : '').
+               $result['host'].
+               (isset($result['port']) ? ':'.$result['port'] : '').
+               (isset($result['path']) ? $result['path'] : '').
+               ($query != [] ? '?'.http_build_query($query) : '').
+               (isset($result['fragment']) ? '#'.$result['fragment'] : '');
     }
 }
