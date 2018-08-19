@@ -1,14 +1,8 @@
 {
     "name": "tangoman/callback-bundle",
     "description": "Callback Symfony Twig Extension Bundle",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Matthias Morin",
-            "email": "matthias.morin@gmail.com"
-        }
-    ],
     "type": "library",
     "keywords": [
         "Callback",
@@ -18,14 +12,38 @@
         "Symfony",
         "Bundle"
     ],
+    "authors": [
+        {
+            "email": "matthias.morin@gmail.com",
+            "name": "Matthias Morin"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }
+    ],
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.5.0"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^3.4",
+        "symfony/symfony": "^3.4"
     },
     "autoload": {
         "psr-4": {
             "TangoMan\\CallbackBundle\\": ""
         }
     },
+    "autoload-dev": {
+        "classmap": [
+            "Tests"
+        ]
+    },
+    "extra": {
+        "symfony-tests-dir": "Tests"
+     },
     "minimum-stability": "dev",
     "prefer-stable": true
 }

@@ -33,6 +33,9 @@ class Callback extends \Twig_Extension
 
     /**
      * Callback constructor.
+     *
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\Routing\Router              $router
      */
     public function __construct(RequestStack $requestStack, Router $router)
     {
