@@ -1,7 +1,6 @@
 <?php
 /**
  * Copyright (c) 2018 Matthias Morin <matthias.morin@gmail.com>
- *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
@@ -14,56 +13,56 @@ use TangoMan\CallbackBundle\TwigExtension\Callback;
 
 /**
  * Class CallbackTest
- *
  * @author  Matthias Morin <matthias.morin@gmail.com>
  * @package TangoMan\CallbackBundle\Tests
  */
 class CallbackTest extends TestCase
 {
 
+    /**
+     *
+     */
     public function testCallback()
     {
+        $uris = [
+            'https://www.example.com/admin/posts',
+            'https://www.example.com/admin/posts/?page=1&order=title&way=DESC',
+            'https://www.example.com/admin/posts/edit/91?callback=http%3A//www.tangoman.com/admin/posts/%3Forder%3Dtitle%26page%3D1%26way%3DDESC',
+            'https://www.example.com/admin/posts/edit/91',
+        ];
+
         // Test uri unaltered through request
-        $uri    = 'https://www.tangoman.com/admin/posts';
-        $result = $this->requestTest($uri);
-        $this->assertEquals($uri, $result);
+        $result = $this->requestTest($uris[0]);
+        $this->assertEquals($uris[0], $result);
 
         // Test query unaltered through request
-        $uri
-                = 'https://www.tangoman.com/admin/posts/?page=1&order=title&way=DESC';
-        $result = $this->requestTest($uri);
-        $this->assertEquals($uri, $result);
+        $result = $this->requestTest($uris[1]);
+        $this->assertEquals($uris[1], $result);
 
         // Test callback removed from query through request
-        $uri
-                = 'https://www.tangoman.com/admin/posts/edit/91?callback=http%3A//www.tangoman.com/admin/posts/%3Forder%3Dtitle%26page%3D1%26way%3DDESC';
-        $result = $this->requestTest($uri);
-        $this->assertEquals(
-            'https://www.tangoman.com/admin/posts/edit/91',
-            $result
-        );
+        $result = $this->requestTest($uris[2]);
+        $this->assertEquals($uris[3], $result);
 
         // Test uri unaltered through router
-        $uri    = 'https://www.tangoman.com/admin/posts';
-        $result = $this->routerTest($uri, 'app_foo_bar', ['slug' => 'foo']);
-        $this->assertEquals($uri, $result);
+        $result = $this->routerTest($uris[0], 'app_foo_bar', ['slug' => 'foo']);
+        $this->assertEquals($uris[0], $result);
 
         // Test query unaltered through router
-        $uri
-                = 'https://www.tangoman.com/admin/posts/?page=1&order=title&way=DESC';
-        $result = $this->routerTest($uri, 'app_foo_bar', ['slug' => 'foo']);
-        $this->assertEquals($uri, $result);
+        $result = $this->routerTest($uris[1], 'app_foo_bar', ['slug' => 'foo']);
+        $this->assertEquals($uris[1], $result);
 
         // Test callback removed from query through router
-        $uri
-                = 'https://www.tangoman.com/admin/posts/edit/91?callback=http%3A//www.tangoman.com/admin/posts/%3Forder%3Dtitle%26page%3D1%26way%3DDESC';
-        $result = $this->routerTest($uri, 'app_foo_bar', ['slug' => 'foo']);
-        $this->assertEquals(
-            'https://www.tangoman.com/admin/posts/edit/91',
-            $result
-        );
+        $result = $this->routerTest($uris[2], 'app_foo_bar', ['slug' => 'foo']);
+        $this->assertEquals($uris[3], $result);
     }
 
+    /**
+     * @param null  $uri
+     * @param null  $route
+     * @param array $parameters
+     *
+     * @return string
+     */
     private function requestTest($uri = null, $route = null, $parameters = [])
     {
         $request = $this->createConfiguredMock(
@@ -86,6 +85,13 @@ class CallbackTest extends TestCase
         return $callback->callbackFunction($route, $parameters);
     }
 
+    /**
+     * @param null  $uri
+     * @param null  $route
+     * @param array $parameters
+     *
+     * @return string
+     */
     private function routerTest($uri = null, $route = null, $parameters = [])
     {
         $request = $this->createMock(Request::class);

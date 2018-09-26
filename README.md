@@ -1,7 +1,11 @@
 TangoMan Callback Twig Extension Bundle
 =======================================
 
-**TangoMan Callback Twig Extension Bundle** provides simple callbacks manager for twig, avoids unnecessary callbacks to stack up indefinitely.
+**TangoMan Callback Twig Extension Bundle** provides simple callback manager for symfony projects.
+
+For example, anytime you need your users to fill a form from a paginated list, your controller will have to redirect them to the page they originated from and you don't want them to loose their parameters from query string.
+
+**TangoMan Callback Twig Extension Bundle** provides simple callback function for twig which avoids unnecessary callbacks to stack up indefinitely in users query string.
 
 Installation
 ============
@@ -91,6 +95,19 @@ Inside your action method:
         ...
     }
 ```
+
+Tests
+=====
+
+**TangoMan CallbackBundle** provides Makefile script to perform unit tests, in order to fit in your continuous integration workflow.
+
+Enter following command to install required dependencies and execute unit tests:
+
+```bash
+$ make tests
+```
+
+On windows machine you will need to install [cygwin](http://www.cygwin.com/) or [GnuWin make](http://gnuwin32.sourceforge.net/packages/make.htm) first to execute make script.
 
 Note
 ====

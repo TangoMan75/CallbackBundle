@@ -8,6 +8,7 @@
 # Colors
 COLOR_TITLE     = \033[1;41m
 COLOR_CAPTION   = \033[1;44m
+COLOR_BOLD      = \033[1;34m
 COLOR_LABEL     = \033[1;32m
 COLOR_DANGER    = \033[31m
 COLOR_SUCCESS   = \033[32m
@@ -56,11 +57,12 @@ help:
 	@printf "$(COLOR_WARNING) make tests${COLOR_DEFAULT}\n\n"
 
 	@printf "${COLOR_CAPTION}Available commands:${COLOR_DEFAULT}\n\n"
-	@awk '/^[a-zA-Z\-\_0-9\@]+:/ { \
+	@awk '/^### .+$$/ { printf "\n${COLOR_BOLD}%s${COLOR_DEFAULT}\n", substr($$0, 5) } \
+	/^[a-zA-Z\-\_0-9\@]+:/ { \
 		HELP_LINE = match(LAST_LINE, /^## (.*)/); \
 		HELP_COMMAND = substr($$1, 0, index($$1, ":")); \
 		HELP_MESSAGE = substr(LAST_LINE, RSTART + 3, RLENGTH); \
-		printf " ${COLOR_LABEL}%-10s${COLOR_DEFAULT} ${COLOR_PRIMARY}%s${COLOR_DEFAULT}\n", HELP_COMMAND, HELP_MESSAGE; \
+		printf " ${COLOR_LABEL}%-8s${COLOR_DEFAULT} ${COLOR_PRIMARY}%s${COLOR_DEFAULT}\n", HELP_COMMAND, HELP_MESSAGE; \
 	} \
 	{ LAST_LINE = $$0 }' ${MAKEFILE_LIST}
 
@@ -82,3 +84,8 @@ ifeq (${OS}, Windows_NT)
 else
 	php -d memory_limit=-1 ./vendor/bin/simple-phpunit --stop-on-failure
 endif
+
+## Delete vendors
+clean:
+	rm -rf /vendor
+	rm -f composer.lock

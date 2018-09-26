@@ -1,8 +1,12 @@
 CHANGELOG
 =========
 
+### 2018-09-26
+ - Optimization CallbackTest
+ - Removed composer.lock
+
 ### 2018-08-19
-	- Units tests and dependencies
+ - Units tests and dependencies
 
 ### 2018-04-08
  - Copyright notice
