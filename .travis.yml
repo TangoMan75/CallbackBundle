@@ -1,0 +1,35 @@
+# Project language
+language: php
+
+# Allows use container-based infrastructure
+sudo: false
+
+# Cache composer packages so "composer install" is faster
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+php:
+  - 5.5
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - nightly
+
+# Matrix to test in every php version
+matrix:
+  # Fast finish allows to set the build as "finished" even if the "allow_failures" matrix elements are not finished yet.
+  fast_finish: true
+  allow_failures:
+    - php: 5.5
+    - php: 5.6
+    - php: nightly
+
+# Install composer dependencies
+install:
+  - composer install
+
+# Run script
+script:
+  - php -d memory-limit=-1 ./vendor/symfony/phpunit-bridge/bin/simple-phpunit

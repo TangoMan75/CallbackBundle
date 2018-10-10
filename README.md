@@ -112,6 +112,7 @@ On windows machine you will need to install [cygwin](http://www.cygwin.com/) or 
 Note
 ====
 
+[![Build Status](https://travis-ci.org/TangoMan75/CallbackBundle.svg?branch=master)](https://travis-ci.org/TangoMan75/CallbackBundle) 
 If you find any bug please report here : [Issues](https://github.com/TangoMan75/CallbackBundle/issues/new)
 
 License

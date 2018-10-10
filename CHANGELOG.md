@@ -1,12 +1,16 @@
 CHANGELOG
 =========
 
+### 2018-10-10
+ - Travis continuous integration
+
 ### 2018-09-26
  - Optimization CallbackTest
  - Removed composer.lock
 
 ### 2018-08-19
  - Units tests and dependencies
+ - v2.1.0 New release
 
 ### 2018-04-08
  - Copyright notice
