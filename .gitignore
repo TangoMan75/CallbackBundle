@@ -67,3 +67,9 @@ Temporary Items
 
 composer.lock
 
+# =========================
+# PHPUnit
+# =========================
+
+/coverage
+

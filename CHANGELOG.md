@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+### 2018-11-25
+ - Updated Makefile
+ - phpunit.xml.dist whitelist bug
+ - gitignore /coverage
+ - Updated README
+ - Updated travis
+
 ### 2018-10-10
  - Travis continuous integration
 

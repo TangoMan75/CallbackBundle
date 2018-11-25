@@ -109,6 +109,11 @@ $ make tests
 
 On windows machine you will need to install [cygwin](http://www.cygwin.com/) or [GnuWin make](http://gnuwin32.sourceforge.net/packages/make.htm) first to execute make script.
 
+If you have XDebug installed, you can generate code coverage report with:
+```bash
+$ make coverage
+```
+
 Note
 ====
 
