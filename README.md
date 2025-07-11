@@ -1,14 +1,48 @@
+![GH language](https://img.shields.io/github/languages/top/TangoMan75/CallbackBundle)
+[![GH release](https://img.shields.io/github/v/release/TangoMan75/CallbackBundle)](https://github.com/TangoMan75/CallbackBundle/releases)
+![GH license](https://img.shields.io/github/license/TangoMan75/CallbackBundle)
+![GH stars](https://img.shields.io/github/stars/TangoMan75/CallbackBundle)
+[![PHP CI](https://github.com/TangoMan75/CallbackBundle/workflows/PHP%20CI/badge.svg)](https://github.com/TangoMan75/CallbackBundle/actions/workflows/php.yml)
+![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FTangoMan75%2FCallbackBundle&labelColor=%23697689&countColor=%2337d67a&style=flat)
+
 TangoMan Callback Twig Extension Bundle
 =======================================
 
-**TangoMan Callback Twig Extension Bundle** provides simple callback manager for symfony projects.
-
-For example, anytime you need your users to fill a form from a paginated list, your controller will have to redirect them to the page they originated from and you don't want them to loose their parameters from query string.
-
 **TangoMan Callback Twig Extension Bundle** provides simple callback function for twig which avoids unnecessary callbacks to stack up indefinitely in users query string.
 
-Installation
-============
+🧩 Purpose of the `Callback` Class
+----------------------------------
+
+This class defines a Twig extension that introduces a custom function called `callback`. Its main job is to **generate clean URLs** by **removing `callback` parameters from query strings**, which can help avoid issues where multiple callbacks get appended indefinitely and make sure users query parameters are not lost in the process.
+
+🔧 `callbackFunction()`
+-----------------------
+
+```php
+public function callbackFunction($route = null, $parameters = [])
+```
+
+- **Behavior**:
+  - If no route is provided -> use the current request URI.
+  - If a route is specified -> generate a full URL using Symfony's router.
+- **Core logic**:
+  - Parses the URL.
+  - Removes the `callback` parameter from the query string.
+  - Reconstructs and returns the cleaned URL.
+
+✨ Real-Life Use Case
+---------------------
+
+Imagine you're building a redirect system where callbacks are passed through URLs. If multiple redirects occur (e.g., login flow, third-party auth, or form submissions), you might get URLs like this:
+
+```
+https://example.com/page?callback=https://another.com?callback=...
+```
+
+This class avoids that endless loop by **stripping the `callback`** query parameter from the final URL so it stays nice and tidy.
+
+📦 Installation
+===============
 
 Step 1: Download the Bundle
 ---------------------------
@@ -51,11 +85,11 @@ class AppKernel extends Kernel
 }
 ```
 
-You don't have to add **TangoMan CallbackBundle** to the `service.yml` of your project. 
+You don't have to add **TangoMan Callback Twig Extension Bundle** to the `service.yml` of your project. 
 **twig.extension.callback** service will load automatically.
 
-Usage
-=====
+🛠️ Usage
+=======
 
 ```
 callback(route = null, parameters = [])
@@ -96,10 +130,10 @@ Inside your action method:
     }
 ```
 
-Tests
-=====
+✅ Tests
+========
 
-**TangoMan CallbackBundle** provides Makefile script to perform unit tests, in order to fit in your continuous integration workflow.
+**TangoMan Callback Twig Extension Bundle** provides Makefile script to perform unit tests, in order to fit in your continuous integration workflow.
 
 Enter following command to install required dependencies and execute unit tests:
 
@@ -114,25 +148,44 @@ If you have XDebug installed, you can generate code coverage report with:
 $ make coverage
 ```
 
-Note
-====
+📝 Note
+=======
 
 [![Build Status](https://travis-ci.org/TangoMan75/CallbackBundle.svg?branch=master)](https://travis-ci.org/TangoMan75/CallbackBundle) 
 If you find any bug please report here : [Issues](https://github.com/TangoMan75/CallbackBundle/issues/new)
 
-License
-=======
+🤝 Contributing
+---------------
 
-Copyright (c) 2018 Matthias Morin
+Thank you for your interest in contributing to **TangoMan Callback Twig Extension Bundle**.
 
-[![License][license-MIT]][license-url]
+Please review the [code of conduct](./CODE_OF_CONDUCT.md) and [contribution guidelines](./CONTRIBUTING.md) before starting to work on any features.
+
+If you want to open an issue, please check first if it was not [reported already](https://github.com/TangoMan75/CallBackBundle/issues) before creating a new one.
+
+📜 License
+----------
+
+Copyrights (c) 2025 &quot;Matthias Morin&quot; &lt;mat@tangoman.io&gt;
+
+[![License](https://img.shields.io/badge/Licence-MIT-green.svg)](LICENSE)
 Distributed under the MIT license.
 
-If you like **TangoMan CallbackBundle** please star!
-And follow me on GitHub: [TangoMan75](https://github.com/TangoMan75)
+If you like **TangoMan Callback Twig Extension Bundle** please star, follow or tweet:
+
+[![GitHub stars](https://img.shields.io/github/stars/TangoMan75/CallBackBundle?style=social)](https://github.com/TangoMan75/CallBackBundle/stargazers)
+[![GitHub followers](https://img.shields.io/github/followers/TangoMan75?style=social)](https://github.com/TangoMan75)
+[![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2FTangoMan75%2FCallBackBundle)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2FTangoMan75%2FCallBackBundle)
+
 ... And check my other cool projects.
 
-[Matthias Morin | LinkedIn](https://www.linkedin.com/in/morinmatthias)
+👋 Let's Build Your Next Project Together !
+-------------------------------------------
 
-[license-MIT]: https://img.shields.io/badge/Licence-MIT-green.svg
-[license-url]: LICENSE
+Looking for an experienced Full-Stack Partner ?
+
+Clean code. Clear communication.
+
+From first sketch to final launch, I've got your back.
+
+[![tangoman.io](https://img.shields.io/badge/✉️%20Get%20in%20touch%20now%20!-FD9400?style=for-the-badge)](https://tangoman.io)
